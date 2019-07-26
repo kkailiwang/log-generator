@@ -27,7 +27,7 @@ def main(argv):
     logFile = 'logGenerator.log'
     sourceDataFile = 'defaultDataFile.txt'
     sourceData = ''
-    logPattern = '%(asctime)s,%(msecs)d %(process)d %(filename)s %(lineno)d %(name)s %(levelname)s %(message)s'
+    logPattern = ''
     datePattern = "%Y-%m-%d %H:%M:%S"
 
     if len(argv) == 0:
@@ -118,7 +118,8 @@ def main(argv):
     formatter = logging.Formatter(logPattern,datePattern)
     fileHandler.setFormatter(formatter)
     logger.addHandler(fileHandler)
-
+    
+    lineToStart = 0
     mustIterate = True
     while (mustIterate):
 
@@ -126,7 +127,7 @@ def main(argv):
         time.sleep(random.uniform(minSleep, maxSleep))
 
         # get random data
-        lineToStart = random.randint(0,totalLines)
+        # lineToStart = random.randint(0,totalLines)
         linesToGet = random.randint(minLines, maxLines)
 
         lastLineToGet = (lineToStart + linesToGet)
@@ -149,6 +150,8 @@ def main(argv):
             iterations = iterations - 1
             if (iterations == 0):
                 mustIterate = False
+
+        lineToStart += 1
 
     sys.exit(0)
 
